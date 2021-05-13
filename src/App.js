@@ -20,6 +20,7 @@ function App() {
   const [keepAPICalling, setKeepAPICalling] = useState()
   const [loading, setLoading] = useState(false)
   const [apiError, setApiError] = useState(false)
+  const [selectedDistrict, setSelectedDistrict] = useState([])
 
   const selectDataForAge = (data, age) => {
     if (!age) {
@@ -116,6 +117,7 @@ function App() {
   };
 
   const handleChangeDistrict = selectedOption => {
+    setSelectedDistrict(selectedOption)
     checkAPI(selectedOption.value, selectedPinCodes.selectedOption)
   };
 
@@ -166,7 +168,17 @@ function App() {
   const startTracking = () => {
     if (keepAPICalling) { clearInterval(keepAPICalling) }
     setKeepAPICalling(setInterval(() => {
-      getSelectedPincodeData(centerData, selectedPinCodes)
+      const today = Moment(new Date()).format("DD-MM-YYYY");
+      const districtId = selectedDistrict.value;
+      fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${districtId}&date=${today}`)
+      .then(resp => resp.json())
+      .then(data => {
+        const { centers } = data
+        if (centers.length > 0) {
+          getSelectedPincodeData(centers, selectedPinCodes)
+        }
+      })
+     
     }, 2000));
   }
 
