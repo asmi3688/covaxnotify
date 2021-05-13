@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/covaxnotify/static/css/main.80d92d26.chunk.css",
+    "main.js": "/covaxnotify/static/js/main.fc556e43.chunk.js",
+    "main.js.map": "/covaxnotify/static/js/main.fc556e43.chunk.js.map",
+    "runtime-main.js": "/covaxnotify/static/js/runtime-main.73d82d7b.js",
+    "runtime-main.js.map": "/covaxnotify/static/js/runtime-main.73d82d7b.js.map",
+    "static/css/2.a0221c37.chunk.css": "/covaxnotify/static/css/2.a0221c37.chunk.css",
+    "static/js/2.ed7c92bd.chunk.js": "/covaxnotify/static/js/2.ed7c92bd.chunk.js",
+    "static/js/2.ed7c92bd.chunk.js.map": "/covaxnotify/static/js/2.ed7c92bd.chunk.js.map",
+    "static/js/3.3edaf1c6.chunk.js": "/covaxnotify/static/js/3.3edaf1c6.chunk.js",
+    "static/js/3.3edaf1c6.chunk.js.map": "/covaxnotify/static/js/3.3edaf1c6.chunk.js.map",
+    "index.html": "/covaxnotify/index.html",
+    "static/css/2.a0221c37.chunk.css.map": "/covaxnotify/static/css/2.a0221c37.chunk.css.map",
+    "static/css/main.80d92d26.chunk.css.map": "/covaxnotify/static/css/main.80d92d26.chunk.css.map",
+    "static/js/2.ed7c92bd.chunk.js.LICENSE.txt": "/covaxnotify/static/js/2.ed7c92bd.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.73d82d7b.js",
+    "static/css/2.a0221c37.chunk.css",
+    "static/js/2.ed7c92bd.chunk.js",
+    "static/css/main.80d92d26.chunk.css",
+    "static/js/main.fc556e43.chunk.js"
+  ]
+}
