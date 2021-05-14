@@ -102,8 +102,9 @@ function App() {
 
   const getDistrictPinCodes = (centers) => {
     const array = []
-    centers.map((element) => {
-      return array.push({ 'value': element.pincode, label: element.pincode })
+    const centerPincodes = [...new Set(centers.map(obj => obj.pincode))];
+    centerPincodes.map((element) => {
+      return array.push({ 'value': element, label: element })
     })
     setPinCodeArray(array)
   }
@@ -171,14 +172,14 @@ function App() {
       const today = Moment(new Date()).format("DD-MM-YYYY");
       const districtId = selectedDistrict.value;
       fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${districtId}&date=${today}`)
-      .then(resp => resp.json())
-      .then(data => {
-        const { centers } = data
-        if (centers.length > 0) {
-          getSelectedPincodeData(centers, selectedPinCodes)
-        }
-      })
-     
+        .then(resp => resp.json())
+        .then(data => {
+          const { centers } = data
+          if (centers.length > 0) {
+            getSelectedPincodeData(centers, selectedPinCodes)
+          }
+        })
+
     }, 2000));
   }
 
