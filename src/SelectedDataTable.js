@@ -22,10 +22,10 @@ const SelectedDataTable = ({ filteredData, label, isLoading }) => {
                             <th >Sr. No.</th>
                             <th >Center</th>
                             <th >Pincode</th>
-                            {/* <th colSpan="4">Capacity</th> */}
+                            <th colSpan="4">Capacity</th> 
                             <th >Available Dose</th>
                         </tr>
-                        {/* <tr className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                        <tr className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                             <th ></th>
                             <th ></th>
                             <th ></th>
@@ -34,7 +34,7 @@ const SelectedDataTable = ({ filteredData, label, isLoading }) => {
                             <th >Date</th>
                             <th >Available Capacity</th>
                             <th ></th>
-                        </tr> */}
+                        </tr> 
                     </thead>
                     <tbody>
                         {filteredData.map((data, index) => {
@@ -44,7 +44,7 @@ const SelectedDataTable = ({ filteredData, label, isLoading }) => {
                                     <td>{index + 1}</td>
                                     <td>{data.name}</td>
                                     <td>{data.pincode}</td>
-                                    {/* <td>
+                                    <td>
                                         {
                                             sessionData.map((session, ind) => {
                                                 return (
@@ -88,7 +88,7 @@ const SelectedDataTable = ({ filteredData, label, isLoading }) => {
                                                 )
                                             })
                                         }
-                                    </td>*/}
+                                    </td>
                                     <td>{data.total_available_capacity}</td>
                                 </tr>)
                         })

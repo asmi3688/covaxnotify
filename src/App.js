@@ -125,7 +125,7 @@ function App() {
   const checkAPI = (districtId) => {
     setLoading(true)
     const today = Moment(new Date()).format("DD-MM-YYYY");
-    fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${districtId}&date=${today}`)
+    fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${districtId}&date=${today}`)
       .then(resp => resp.json())
       .then(data => {
         const { centers } = data
@@ -171,7 +171,7 @@ function App() {
     setKeepAPICalling(setInterval(() => {
       const today = Moment(new Date()).format("DD-MM-YYYY");
       const districtId = selectedDistrict.value;
-      fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByDistrict?district_id=${districtId}&date=${today}`)
+      fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${districtId}&date=${today}`)
         .then(resp => resp.json())
         .then(data => {
           const { centers } = data
