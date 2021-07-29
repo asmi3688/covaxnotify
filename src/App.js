@@ -20,7 +20,6 @@ function App() {
   const [keepAPICalling, setKeepAPICalling] = useState()
   const [loading, setLoading] = useState(false)
   const [apiError, setApiError] = useState(false)
-  const [selectedDistrict, setSelectedDistrict] = useState([])
 
   const selectDataForAge = (data, age) => {
     if (!age) {
@@ -28,29 +27,28 @@ function App() {
     }
     return data.filter(({ min_age_limit }) => min_age_limit === age);
   };
-
-
-  const sendNotificationForSelected = (pincode, name, filteredPinCodes) => {
-    if (filteredPinCodes.includes(pincode)) {
-      const soundId = document.getElementById("notif_sound");
-      if (soundId) {
-        soundId.play();
-      }
-      addNotification({
-        title: pincode,
-        subtitle: name,
-        message: name,
-        theme: "darkblue",
-        silent: false,
-        native: true
-      });
+  
+  const sendNotificationForPincodeArray = (pincode, name, filteredPinCodes) => {
+    const soundId = document.getElementById("notif_sound");
+    if (soundId) {
+      soundId.play();
     }
+    addNotification({
+      title: pincode,
+      subtitle: "Available Vaccine Pincodes",
+      message: name,
+      theme: "darkblue",
+      silent: false,
+      native: true
+    });
+   
   }
 
   const getSelectedPincodeData = (centers, selectedPinCodes) => {
     setLoading(true)
     const { selectedOption } = selectedPinCodes
     const filteredPinCodes = [];
+    const pincodeArr = [];
     selectedOption && selectedOption.length > 0 && selectedOption.filter((element, i) => {
       filteredPinCodes.push(element.value)
     })
@@ -60,7 +58,9 @@ function App() {
         if (selectedAgeData.length) {
           const totalVaccine = selectedAgeData.reduce((sum, { available_capacity }) => sum + available_capacity, 0);
           if (totalVaccine) {
-            sendNotificationForSelected(pincode, name, filteredPinCodes);
+            if(pincodeArr.indexOf(pincode) === -1) {
+              pincodeArr.push(pincode);
+            }
           }
           return [
             ...newData,
@@ -76,6 +76,7 @@ function App() {
       }
       return newData;
     }, []);
+    sendNotificationForPincodeArray(JSON.stringify(pincodeArr));
     setFilteredPincodeData(filteredData)
     setLoading(false)
   }
@@ -102,9 +103,8 @@ function App() {
 
   const getDistrictPinCodes = (centers) => {
     const array = []
-    const centerPincodes = [...new Set(centers.map(obj => obj.pincode))];
-    centerPincodes.map((element) => {
-      return array.push({ 'value': element, label: element })
+    centers.map((element) => {
+      return array.push({ 'value': element.pincode, label: element.pincode })
     })
     setPinCodeArray(array)
   }
@@ -118,7 +118,6 @@ function App() {
   };
 
   const handleChangeDistrict = selectedOption => {
-    setSelectedDistrict(selectedOption)
     checkAPI(selectedOption.value, selectedPinCodes.selectedOption)
   };
 
@@ -169,17 +168,7 @@ function App() {
   const startTracking = () => {
     if (keepAPICalling) { clearInterval(keepAPICalling) }
     setKeepAPICalling(setInterval(() => {
-      const today = Moment(new Date()).format("DD-MM-YYYY");
-      const districtId = selectedDistrict.value;
-      fetch(`https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=${districtId}&date=${today}`)
-        .then(resp => resp.json())
-        .then(data => {
-          const { centers } = data
-          if (centers.length > 0) {
-            getSelectedPincodeData(centers, selectedPinCodes)
-          }
-        })
-
+      getSelectedPincodeData(centerData, selectedPinCodes)
     }, 2000));
   }
 
